@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="main">
+    <!-- Begin: header -->
+    <div id="header">
+        <span>CMS</span>
+        <div class="user-btn">
+            <i class="user-icon ti-user"></i>
+            <i class="arrow-icon ti-angle-down"></i>
+        </div>
+    </div>
+    <!-- End: header -->
+    <div id="nav-left">
+        <div class="form-search">
+            <input type="text" placeholder="Search..." class="search-input">
+            <div class="search-btn">
+                <i class="search-icon ti-search"></i>
+            </div>
+        </div>
+        <div class="view-contents-btn">
+            <a href="#">
+                <i class="calendar-icon ti-calendar"></i> View contents
+            </a>
+        </div>
+        <div class="form-content-btn">
+            <a href="#">
+                <i class="form-content-icon ti-pencil-alt"></i> View contents
+            </a>
+        </div>
+    </div>
+    <div id="content">
+        <div class="heading">
+            <h1 class="text-heading">Edit Profile</h1>
+        </div>
+        <div class="form-content">
+            <div class="heading-form-profile">
+                <h5 class="text-heading">Profile Form Elements</h5>
+            </div>
+            <form action="" class="form-profile" id="form-view-profile">
+                <div class="row">
+                    <label for="profile-first-name" class="profile-label">First Name</label>
+                    <input id="profile-first-name" type="text" class="profile-input" placeholder="Enter the first name">
+                </div>
+                <div class="row">
+                    <label for="profile-last-name" class="profile-label">Last Name</label>
+                    <input id="profile-last-name" type="text" class="profile-input" placeholder="Enter the last name">
+                </div>
+                <div class="row">
+                    <label class="profile-label">Email</label>
+                    <span id="profile-email"></span>
+                </div>
+                <div class="row">
+                    <label for="profile-phone" class="profile-label">Phone</label>
+                    <input id="profile-phone" type="text" class="profile-input" placeholder="Enter the phone number">
+                </div>
+                <div class="row">
+                    <label for="profile-description" class="profile-label">Description</label>
+                    <textarea id="profile-description" rows="4" cols="50" class="profile-input"></textarea>
+                </div>
+                <button value="Submit button" id="btn-submit" class="btn submit-btn">Submit button</button>
+                <input type="submit" value="Reset button" class="btn reset-btn">
+                <button value="Delete button" id="btn-delete" class="btn submit-btn">Delete button</button>
+                <button value="Insert button" id="btn-insert" class="btn submit-btn">Insert button</button>
+                <button value="Update button" id="btn-update" class="btn submit-btn">Update button</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="./test.js"></script> -->
+<script type="text/javascript">
+//  $(document).ready(function() {
+//         };
+// var jqxhr = $.post("test.js", function() {
+//         alert("success");
+//     })
+//     .done(function() {
+//         alert("second success");
+//     })
+//     .fail(function() {
+//         alert("error");
+//     })
+//     .always(function() {
+//         alert("finished");
+//     });
+//     getCurrent();
+// })
+$('#btn-submit').on('click', function() {
+    event.preventDefault();
+    $.ajax({
+        url: 'http://localhost:8080/showMember',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+            console.log("Venue Successfully Patched!");
+        },
+        error: function(jqXHR) {
+            // log the error to the console
+            console.log("The following error occured: " + textStatus, errorThrown);
+        },
+        complete: function() {
+            console.log("Venue Patch Ran");
+        }
+    });
+});
+$('#btn-delete').on('click', function() {
+    var data = 1;
+    event.preventDefault();
+    $.ajax({
+        url: 'http://localhost:8080/showMember',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+            console.log("Venue Successfully Patched!");
+        },
+        error: function(jqXHR) {
+            // log the error to the console
+            console.log("The following error occured: " + textStatus, errorThrown);
+        },
+        complete: function() {
+            console.log("Venue Patch Ran");
+        }
+    });
+});
+$('#btn-insert').on('click', function() {
+    event.preventDefault();
+    var firstname = $('#profile-first-name').val();
+    var lastname = $('#profile-last-name').val();
+    var phone = $('#profile-phone').val();
+    var description = $('#profile-description').val();
+    var data = {id: 10, firstname: firstname, lastname: lastname, phone:phone, description:description};
+    $.ajax({
+        url: 'http://localhost:8080/MemberAdd',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function(response) {
+            console.log(response);
+            console.log("Venue Successfully Patched!");
+        },
+        error: function(jqXHR) {
+            // log the error to the console
+            console.log("The following error occured: " + textStatus, errorThrown);
+        },
+        complete: function() {
+            console.log("Venue Patch Ran");
+        }
+    });
+});
+$('#btn-update').on('click', function() {
+    event.preventDefault();
+    var firstname = $('#profile-first-name').val();
+    var lastname = $('#profile-last-name').val();
+    var phone = $('#profile-phone').val();
+    var description = $('#profile-description').val();
+    var data = {id: 10, firstname: firstname, lastname: lastname, phone:phone, description:description};
+    $.ajax({
+        url: 'http://localhost:8080/MemberUpdate',
+        type: 'PUT',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function(response) {
+            console.log(response);
+            console.log("Venue Successfully Patched!");
+        },
+        error: function(jqXHR) {
+            // log the error to the console
+            console.log("The following error occured: ");
+        },
+        complete: function() {
+            console.log("Venue Patch Ran");
+        }
+    });
+});
+// validate({
+//     form: '#form-view-profile',
+//     rules: [
+//         validate.isRequired('#profile-first-name'),
+//         validate.isRequired('#profile-last-name'),
+//         validate.isPhone('#profile-phone'),
+//         validate.isMaxTextDec('#profile-description')
+//     ]
+// });
+</script>
+<style>
+    /* Reset CSS */
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /* Common */
+    /* Main */
+
+    #main {}
+
+    #main::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    #header {
+        height: 40px;
+        background-color: rgb(221, 219, 219);
+        border-bottom: 2px solid rgb(200, 200, 200);
+    }
+
+    #header span {
+        display: inline-block;
+        color: rgba(77, 77, 77);
+        margin: 8px;
+    }
+
+    #header::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    #header .user-btn {
+        float: right;
+        margin: 8px;
+    }
+
+    #nav-left {
+        background-color: rgb(221, 219, 219);
+        width: 224px;
+        height: 93vh;
+        width: 21vw;
+        float: left;
+        border-right: 2px solid rgb(200, 200, 200);
+    }
+
+    #nav-left .form-search {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-bottom: 2px solid rgb(200, 200, 200);
+    }
+
+    #nav-left .form-search .search-input {
+        padding: 2px;
+    }
+
+    #nav-left .form-search .search-btn {
+        display: inline;
+        padding: 4px 4px 2px;
+        background-color: #ccc;
+    }
+
+    #nav-left .view-contents-btn {
+        padding: 8px;
+        border-bottom: 2px solid rgb(200, 200, 200);
+    }
+
+    #nav-left .view-contents-btn a {
+        text-decoration: none;
+        color: #0000FF;
+    }
+
+    #nav-left .form-content-btn {
+        padding: 8px;
+        border-bottom: 2px solid rgb(200, 200, 200);
+    }
+
+    #nav-left .form-content-btn a {
+        text-decoration: none;
+        color: #0000FF;
+    }
+
+    #content {
+        height: 100vh;
+        width: 77vw;
+        float: right;
+    }
+
+    #content .heading {
+        border-bottom: 2px solid rgb(200, 200, 200);
+        margin-right: 8px;
+    }
+
+    .text-heading {
+        margin: 4px;
+        font-weight: 500;
+    }
+
+    #content .form-content {
+        border: 2px solid rgb(200, 200, 200);
+        margin-top: 8px;
+        margin-right: 8px;
+    }
+
+    #content .form-content {
+        background-color: rgb(221, 219, 219);
+    }
+
+    #content .form-content .heading-form-profile {
+        margin: 4px;
+        height: 20px;
+        border-bottom: 2px solid rgb(200, 200, 200);
+    }
+
+    #content .form-profile {
+        width: 80%;
+        margin: 4px;
+    }
+
+    #content .form-profile .profile-label {
+        margin: 4px;
+    }
+
+    #content .form-profile .profile-input {
+        width: 100%;
+        margin: 8px 4px 12px;
+        padding: 4px 8px;
+    }
+
+    #profile-email {
+        display: block;
+        margin: 8px 4px 16px;
+        width: 100%;
+    }
+
+    #profile-description {
+        height: 64px;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: nowrap;
+    }
+
+    .btn {
+        margin: 4px;
+        padding: 4px 8px;
+    }
+
+    .submit-btn {
+        height: 30px;
+        width: 120px;
+    }
+
+    .true {
+        border: 1px solid green;
+    }
+
+    .false {
+        border: 1px solid red;
+    }
+</style>
+</body>
+
+</html>
